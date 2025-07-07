@@ -187,6 +187,7 @@ const Footer = () => {
                 >
                   {link.title}
                 </Link>
+                
               ))}
             </VStack>
 
