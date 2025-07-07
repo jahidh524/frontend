@@ -1,5 +1,5 @@
-import OurServices from "./OurServices";
-import OverviewSection from "./OverviewSection";
+import OurServices from "../components/HomePage/OurServices";
+import OverviewSection from "../components/HomePage/OverviewSection";
 
 const Home = () => {
   return (
