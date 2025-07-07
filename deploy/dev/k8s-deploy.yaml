@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: $PROJECT_NAME
+  namespace: $K8S_NAMESPACE
+  labels:
+    app: $PROJECT_NAME
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: $PROJECT_NAME
+  template:
+    metadata:
+      labels:
+        app: $PROJECT_NAME
+    spec:
+      containers:
+        - name: $PROJECT_NAME
+          image: $DOCKER_TAG
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: $K8S_SERVICE_PORT
+              name: http
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /actuator/health/liveness
+          #     port: $K8S_SERVICE_PORT
+          #     scheme: HTTP
+          #   initialDelaySeconds: 30
+          #   periodSeconds: 15
+          #   timeoutSeconds: 1
+          #   successThreshold: 1
+          #   failureThreshold: 3
+          # readinessProbe:
+          #   httpGet:
+          #     path: /actuator/health/readiness
+          #     port: $K8S_SERVICE_PORT
+          #     scheme: HTTP
+          #   initialDelaySeconds: 30
+          #   periodSeconds: 15
+          #   timeoutSeconds: 1
+          #   successThreshold: 1
+          #   failureThreshold: 3
+          resources:
+            requests:
+              memory: 750Mi
+            limits:
+              memory: 750Mi
+      imagePullSecrets:
+        - name: $REGISTRY
